@@ -14,6 +14,10 @@ import { Component, OnInit } from '@angular/core';
     .fill-remaining-space {
       flex: 1 1 auto;
     }
+    .nav{
+      margin-top:0px;
+    }
+    
     `
   ]
 })
