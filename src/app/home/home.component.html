@@ -1,29 +1,18 @@
-<mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav [mode]="mode.value">
-        <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-        <p>
-            <mat-radio-group class="example-radio-group" [formControl]="mode">
-                <label>Mode:</label>
-                <mat-radio-button value="over">Over</mat-radio-button>
-                <mat-radio-button value="side">Side</mat-radio-button>
-                <mat-radio-button value="push">Push</mat-radio-button>
-            </mat-radio-group>
+<div class="card mt-3" style="width: 18rem;">
+    <div class="card-title">
 
+    </div>
+    <div class="card-body">
 
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Horarios</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Cursos</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Notas</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Datos Personales</a>
+        </div>
 
-        </p>
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-        <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-        <p>
-
-            <mat-selection-list [multiple]="false" #shoes>
-                <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
-                    {{shoe}}
-                </mat-list-option>
-            </mat-selection-list>
-
-        </p>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-warning" (click)="onLogout()" *ngIf="isLoggedIn$ | async">Salir</button>
+    </div>
+</div>
