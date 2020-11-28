@@ -1,18 +1,179 @@
-<div class="card mt-3" style="width: 18rem;">
-    <div class="card-title">
+<div class="row d-flex justify-content-between">
+    <div class="col-3">
+        <div class="card mt-3" style="width: 17rem;">
+            <div class="card-title bg-success text-white text-center">
+                <h3>{{al?.nombreAlumno}}</h3>
+                <h6>{{al?.carrera.nombreCarrera}}</h6>
+            </div>
+            <div class="card-body">
 
-    </div>
-    <div class="card-body">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active border-bottom" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-casa" role="tab" aria-controls="v-pills-casa" aria-selected="false">Inicio</a>
+                    <a (click)='getHorarios()' class="nav-link border-bottom" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">Horarios</a>
+                    <a class="nav-link border-bottom" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Cursos</a>
+                    <a (click)='getNotas()' class="nav-link border-bottom" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Notas</a>
+                    <a class="nav-link border-bottom" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Perfil</a>
+                </div>
 
-        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Horarios</a>
-            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Cursos</a>
-            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Notas</a>
-            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Datos Personales</a>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-warning" (click)="onLogout()" *ngIf="isLoggedIn$ | async">Salir</button>
+            </div>
         </div>
-
     </div>
-    <div class="card-footer">
-        <button class="btn btn-warning" (click)="onLogout()" *ngIf="isLoggedIn$ | async">Salir</button>
+
+    <div class="col-9">
+        <div class="card mt-3">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade active show " id="v-pills-casa" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div class="jumbotron text-white" style="background: url('../../assets/pexels-nick-demou-2506947.jpg');background-size: cover;">
+                        <h1 class="display-4">La tecnología actual en nuestra sociedad</h1>
+                        <p class="lead"></p>
+                        <hr class="my-4">
+                        <p>Actualmente estamos viviendo una gran <br> revolución de la información sin darnos cuenta <br> y sin conocer totalmente la tecnología que nos rodea...</p>
+                        <a class="btn btn-primary btn-lg" href="https://www.tribunavalladolid.com/noticias/la-tecnologia-actual-en-nuestra-sociedad/1369849795" role="button">Seguir leyendo.</a>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade  " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Día</th>
+                                <th>Turno</th>
+                                <th>Curso</th>
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                                <th>Docente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let horario of alumnoXHorario">
+                                <td>{{ horario?.diaHorario}}</td>
+                                <td>{{ horario?.turnoHorario}}</td>
+                                <td>{{horario?.asignatura.nombreAsignatura }}</td>
+                                <td>{{ horario?.horaInicioHorario}}</td>
+                                <td>{{ horario?.horaFinHorario}}</td>
+                                <td>{{ horario?.docente.nombreDocente}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Curso</th>
+                                <th>Caso 1</th>
+                                <th>Caso 2</th>
+                                <th>Caso 3</th>
+                                <th>Caso virtual</th>
+                                <th>Nota final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let notas of alumnoXNotas">
+                                <td>{{ notas?.asignatura.nombreAsignatura}}</td>
+                                <td>{{ notas?.caso_1}}</td>
+                                <td>{{notas?.caso_2 }}</td>
+                                <td>{{ notas?.caso_3}}</td>
+                                <td>{{ notas?.casoVirtual}}</td>
+                                <td>{{ notas?.notaFinal}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Curso</th>
+                                <th>Caso 1</th>
+                                <th>Caso 2</th>
+                                <th>Caso 3</th>
+                                <th>Caso virtual</th>
+                                <th>Nota final</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let notas of alumnoXNotas">
+                                <td>{{ notas?.asignatura.nombreAsignatura}}</td>
+                                <td>{{ notas?.caso_1}}</td>
+                                <td>{{notas?.caso_2 }}</td>
+                                <td>{{ notas?.caso_3}}</td>
+                                <td>{{ notas?.casoVirtual}}</td>
+                                <td>{{ notas?.notaFinal}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+
+                    <div class="row container">
+
+                        <div class="col-6">
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nombre</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{al?.nombreAlumno}}" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Apellido</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{al?.apellidoAlumno}}" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">DNI</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{al?.dniAlumno}}" readonly>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Celular</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="{{al?.celularAlumno}}" readonly>
+
+                            </div>
+
+
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Correo</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" value="{{al?.correoAlumno}}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Semestre</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" value="{{al?.semestre.nombreSemestre}}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Carrera</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" value="{{al?.carrera.nombreCarrera}}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Fecha de Ingreso</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" value="{{al?.fechaRegistroAlumno}}" readonly>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>

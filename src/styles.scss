@@ -2,7 +2,11 @@
 
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+html {
+    font-family: 'Montserrat', sans-serif;
+}
+
 body {
-    background: url(assets/pexels-nick-demou-2506947.jpg);
+    background: url(assets/salon.jpg);
     background-size: cover;
 }

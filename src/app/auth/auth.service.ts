@@ -22,10 +22,6 @@ export class AuthService {
     return this.isMostrarHome.asObservable();
   }
 
-
-
-
-
   constructor(
     private router: Router
   ) {}
